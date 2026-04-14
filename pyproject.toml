@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bybit-crypto-trader"
+version = "0.1.0"
+description = "Notebook-friendly Bybit research, backtesting, demo, and live trading framework."
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [{name = "Codex"}]
+dependencies = [
+  "duckdb>=1.1.3",
+  "jupyterlab>=4.3.0",
+  "polars>=1.12.0",
+  "pydantic>=2.9.0",
+  "pybit>=5.9.0",
+  "websockets>=14.1",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3.0",
+]
+
+[project.scripts]
+bybit-trader-runner = "bybit_trader.runner:main"
+bybit-trader-verify = "bybit_trader.verification:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

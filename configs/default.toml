@@ -1,0 +1,92 @@
+[storage]
+root = "data"
+raw_path = "data/raw"
+normalized_path = "data/normalized"
+notebook_path = "notebooks"
+
+[universe]
+dynamic = true
+quote_coin = "USDT"
+symbols = ["BTCUSDT", "ETHUSDT", "SOLUSDT"]
+base_coins = []
+min_24h_turnover = 5000000
+max_spread_bps = 20
+min_listing_days = 21
+require_funding_observations = 5
+
+[risk]
+max_gross_leverage = 1.8
+max_single_symbol_notional = 25000
+max_order_notional = 10000
+max_drawdown = 0.18
+max_daily_loss = 0.05
+stale_after_seconds = 90
+option_vega_limit = 2000
+
+[execution]
+run_mode = "backtest"
+execution_mode = "manual"
+use_demo = true
+poll_interval_seconds = 60
+confirm_before_send = false
+
+[[strategies]]
+name = "perp_trend"
+enabled = true
+
+[strategies.params]
+lookback_fast = 24
+lookback_slow = 96
+vol_lookback = 48
+funding_cap = 0.0008
+target_vol = 0.15
+
+[[strategies]]
+name = "perp_mean_reversion"
+enabled = true
+
+[strategies.params]
+lookback = 48
+entry_z = 2.0
+exit_z = 0.6
+funding_shock = 0.001
+
+[[strategies]]
+name = "carry_basket"
+enabled = true
+
+[strategies.params]
+lookback = 10
+basket_size = 2
+gross_notional = 30000
+
+[[strategies]]
+name = "momentum_rotation"
+enabled = true
+
+[strategies.params]
+short_horizon = 24
+medium_horizon = 72
+long_horizon = 168
+top_n = 2
+bottom_n = 2
+gross_notional = 30000
+
+[[strategies]]
+name = "volatility_breakout"
+enabled = true
+
+[strategies.params]
+atr_lookback = 20
+compression_window = 12
+breakout_window = 24
+volume_multiple = 1.3
+
+[[strategies]]
+name = "option_iv_hv_long_gamma"
+enabled = false
+
+[strategies.params]
+base_coins = ["BTC", "ETH"]
+iv_discount = 0.85
+
